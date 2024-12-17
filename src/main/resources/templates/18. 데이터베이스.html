@@ -65,3 +65,57 @@ year  : yyyy
 
 [논리형]
 boolean : true 또는 false
+
+[데이터베이스 언어(SQL-비절차적 언어)]
+DDL(데이터베이스 정의어) ; Create, Alter, Drop
+                        테이블, 데이터베이스, 뷰, 인덱스를 생성, 수정, 삭제 ==> Entity
+DML(데이터베이스 조작어) ; Insert, Update, Delete, Select
+                        레코드 삽입, 수정, 삭제, 조회 ==> Repository(JPA, myBatis)
+                        데이터베이스 작업의 기본단위(레코드)
+DCL(데이터베이스 제어어) ; 제약조건
+
+[Create]
+Create 대상 이름
+
+Create database sample; //sample 데이터베이스를 생성
+
+create table 이름(
+    필드명 데이터형(크기) 제약조건,
+    필드명 데이터형(크기) 제약조건
+)
+
+create table sample(
+    id int primary key, // id필드는 정수형으로 기본키
+    name varchar(30),   // name필드는 가변문자형으로 30크기
+    age int default 0,  // age필드는 정수형으로 기본값 0으로 설정
+    tel varchar(20) not null   //tel필드는 가변문자형으로 20크기로 생략 불가능
+)
+기본키는 테이블의 레코드를 식별하는 유일한 키, 중복불가능(일련번호, 주민등록번호)
+
+[Alter]-구조변경(테이블)
+Alter table 테이블명 ADD 필드 데이터형 - 추가
+alter table 테이블명 MODIFY 필드 데이터형 - 변경
+alter table 테이블명 RENAME 이전필드명 TO 새로운필드명 - 이름변경
+
+[Drop]-삭제
+DROP DATABASE 데이터베이스
+DROP TABLE 테이블명
+
+[조작어]-문법이 틀리면 오류 발생, 값에 문제가 있으면 오류 발생을 안한다.
+[Insert] 레코드 삽입 : 필드갯수와 값에 갯수가 다르면 저장이 안된다.
+                     필드에 데이터형과 값이 다르면 저장이 안된다.
+Insert Into 테이블명(필드명, 필드명, ....) Values (값, 값, 값, ....)
+Repository   Entity                               Entity(DTO)
+
+[Update] 레코드 수정 : 조건식이 생략하면 모든 데이터가 수정된다.
+                     반드시 작업할 대상을 지정
+Update 테이블명 SET 필드 = 수정값, .... WHERE 조건식
+Update sample set age=20 where name="홍길동 "
+1) = : 정확한 데이터를 찾을 때 사용
+2) like : 비슷한 데이터를 찾을 때 사용
+Update sample set 좋아요=좋아요+1 where 게시글번호=번호
+
+[Delete] 레코드 삭제 : 조건식이 없으면 모든 데이터가 삭제
+Delete FROM 테이블명 Where 조건
+
+delete from sample where id=1   // sample 테이블에서 id가 1인 레코드 삭제
